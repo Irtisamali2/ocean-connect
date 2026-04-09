@@ -1,0 +1,33 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <circle cx="600" cy="360" r="190" fill="#38bdf8" opacity="0.14"/>
+  <g stroke="#93c5fd" stroke-width="8" stroke-linecap="round">
+    <circle cx="600" cy="360" r="110" fill="none"/>
+    <circle cx="600" cy="360" r="42" fill="none"/>
+    <path d="M490 360H380"/>
+    <path d="M710 360H820"/>
+    <path d="M600 250V140"/>
+    <path d="M600 470V580"/>
+    <path d="M522 282L450 210"/>
+    <path d="M678 282L750 210"/>
+    <path d="M522 438L450 510"/>
+    <path d="M678 438L750 510"/>
+  </g>
+  <g fill="#67e8f9">
+    <circle cx="380" cy="360" r="16"/>
+    <circle cx="820" cy="360" r="16"/>
+    <circle cx="600" cy="140" r="16"/>
+    <circle cx="600" cy="580" r="16"/>
+    <circle cx="450" cy="210" r="16"/>
+    <circle cx="750" cy="210" r="16"/>
+    <circle cx="450" cy="510" r="16"/>
+    <circle cx="750" cy="510" r="16"/>
+  </g>
+  <text x="600" y="665" fill="#e0f2fe" font-size="52" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700">AI Developer</text>
+</svg>
