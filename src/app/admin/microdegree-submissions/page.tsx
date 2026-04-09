@@ -8,6 +8,42 @@ export const metadata: Metadata = {
   title: 'MicroDegree Submissions | Ocean Connect Admin',
 };
 
+function formatDateCell(value: unknown) {
+  if (value instanceof Date) {
+    return value.toISOString().slice(0, 10);
+  }
+
+  if (typeof value === 'string' || typeof value === 'number') {
+    return String(value);
+  }
+
+  if (value == null) {
+    return '';
+  }
+
+  try {
+    return String(value);
+  } catch {
+    return '';
+  }
+}
+
+function formatDateTimeCell(value: unknown) {
+  if (value instanceof Date) {
+    return value.toLocaleString();
+  }
+
+  const text = typeof value === 'string' || typeof value === 'number' ? String(value) : '';
+  if (!text) return '';
+
+  const parsed = new Date(text);
+  if (!Number.isNaN(parsed.getTime())) {
+    return parsed.toLocaleString();
+  }
+
+  return text;
+}
+
 export default async function MicrodegreeSubmissionsPage() {
   const cookieStore = await cookies();
   const sessionToken = cookieStore.get(ADMIN_SESSION_COOKIE)?.value;
@@ -82,14 +118,14 @@ export default async function MicrodegreeSubmissionsPage() {
               {submissions.map((item) => (
                 <tr key={item.id}>
                   <td style={{ padding: '10px 12px', fontSize: '0.8rem', borderBottom: '1px solid rgba(15,23,42,0.07)' }}>
-                    {new Date(item.created_at).toLocaleString()}
+                    {formatDateTimeCell(item.created_at)}
                   </td>
                   <td style={{ padding: '10px 12px', fontSize: '0.8rem', borderBottom: '1px solid rgba(15,23,42,0.07)' }}>{item.full_name}</td>
                   <td style={{ padding: '10px 12px', fontSize: '0.8rem', borderBottom: '1px solid rgba(15,23,42,0.07)' }}>{item.email}</td>
                   <td style={{ padding: '10px 12px', fontSize: '0.8rem', borderBottom: '1px solid rgba(15,23,42,0.07)' }}>{item.phone_number}</td>
                   <td style={{ padding: '10px 12px', fontSize: '0.8rem', borderBottom: '1px solid rgba(15,23,42,0.07)' }}>{item.whatsapp_number}</td>
                   <td style={{ padding: '10px 12px', fontSize: '0.8rem', borderBottom: '1px solid rgba(15,23,42,0.07)' }}>{item.city}</td>
-                  <td style={{ padding: '10px 12px', fontSize: '0.8rem', borderBottom: '1px solid rgba(15,23,42,0.07)' }}>{item.date_of_birth}</td>
+                  <td style={{ padding: '10px 12px', fontSize: '0.8rem', borderBottom: '1px solid rgba(15,23,42,0.07)' }}>{formatDateCell(item.date_of_birth)}</td>
                   <td style={{ padding: '10px 12px', fontSize: '0.8rem', borderBottom: '1px solid rgba(15,23,42,0.07)' }}>{item.current_qualification}</td>
                   <td style={{ padding: '10px 12px', fontSize: '0.8rem', borderBottom: '1px solid rgba(15,23,42,0.07)' }}>{item.study_or_work_status}</td>
                   <td style={{ padding: '10px 12px', fontSize: '0.8rem', borderBottom: '1px solid rgba(15,23,42,0.07)' }}>{item.english_learning_ability}</td>
