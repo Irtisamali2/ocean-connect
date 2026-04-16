@@ -18,6 +18,11 @@ type SendEmailsOptions = {
   notifyEmailOverride?: string;
 };
 
+type EmailDeliveryResult = {
+  applicantMessageId: string;
+  adminMessageId: string;
+};
+
 function resolveSmtpConfig(): MicrodegreeSmtpConfig {
   const user = process.env.MICRODEGREE_SMTP_USERNAME || process.env.SMTP_USERNAME || '';
   const pass = process.env.MICRODEGREE_SMTP_PASSWORD || process.env.SMTP_PASSWORD || '';
@@ -138,11 +143,32 @@ function adminEmailHtml(input: MicrodegreeSubmissionInput, submissionId: number 
   `;
 }
 
+async function sendWithRetry(
+  send: () => Promise<{ messageId?: string }>,
+  label: string,
+  retries = 1,
+) {
+  let lastError: unknown;
+
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
+    try {
+      const result = await send();
+      return result;
+    } catch (error) {
+      lastError = error;
+      if (attempt === retries) break;
+    }
+  }
+
+  const message = lastError instanceof Error ? lastError.message : `Unknown ${label} error`;
+  throw new Error(`Unable to send ${label} email: ${message}`);
+}
+
 export async function sendMicrodegreeSubmissionEmails(
   input: MicrodegreeSubmissionInput,
   submissionId: number | string,
   options?: SendEmailsOptions,
-) {
+): Promise<EmailDeliveryResult> {
   const cfg = resolveSmtpConfig();
   const transporter = nodemailer.createTransport({
     host: cfg.host,
@@ -158,17 +184,30 @@ export async function sendMicrodegreeSubmissionEmails(
   const applicantRecipient = options?.applicantEmailOverride || input.email;
   const notifyRecipient = options?.notifyEmailOverride || cfg.notifyEmail;
 
-  await transporter.sendMail({
-    from,
-    to: applicantRecipient,
-    subject: 'Microsoft Skills for Jobs Microdegree Program - Submission Received',
-    html: applicantEmailHtml(input.fullName),
-  });
+  const applicantResponse = await sendWithRetry(
+    () =>
+      transporter.sendMail({
+        from,
+        to: applicantRecipient,
+        subject: 'Microsoft Skills for Jobs Microdegree Program - Submission Received',
+        html: applicantEmailHtml(input.fullName),
+      }),
+    'applicant',
+  );
 
-  await transporter.sendMail({
-    from,
-    to: notifyRecipient,
-    subject: `New Microdegree Submission - ${input.fullName}`,
-    html: adminEmailHtml(input, submissionId),
-  });
+  const adminResponse = await sendWithRetry(
+    () =>
+      transporter.sendMail({
+        from,
+        to: notifyRecipient,
+        subject: `New Microdegree Submission - ${input.fullName}`,
+        html: adminEmailHtml(input, submissionId),
+      }),
+    'admin notification',
+  );
+
+  return {
+    applicantMessageId: applicantResponse.messageId || '',
+    adminMessageId: adminResponse.messageId || '',
+  };
 }

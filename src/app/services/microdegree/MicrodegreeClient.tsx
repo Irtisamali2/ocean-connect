@@ -315,7 +315,7 @@ export default function MicrodegreeClient() {
         return;
       }
 
-      setSubmitSuccess('Your form has been submitted successfully. Our team will contact you soon.');
+      setSubmitSuccess('Your form has been submitted successfully and confirmation emails have been sent.');
       setFormData(initialForm);
       setStep(0);
       setErrors({});
