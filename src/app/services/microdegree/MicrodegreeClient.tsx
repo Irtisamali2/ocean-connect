@@ -314,13 +314,17 @@ export default function MicrodegreeClient() {
         body: JSON.stringify(formData),
       });
 
-      const data = (await response.json()) as { ok?: boolean; message?: string };
+      const data = (await response.json()) as { ok?: boolean; message?: string; emailWarning?: string; emailSent?: boolean };
       if (!response.ok || !data.ok) {
         setSubmitError(data.message || 'Unable to submit right now. Please try again.');
         return;
       }
 
-      setSubmitSuccess('Your form has been submitted successfully and confirmation emails have been sent.');
+      if (data.emailWarning) {
+        setSubmitSuccess('Your form has been submitted successfully. Email delivery is delayed; our team will follow up shortly.');
+      } else {
+        setSubmitSuccess('Your form has been submitted successfully and confirmation emails have been sent.');
+      }
       setFormData(initialForm);
       setStep(0);
       setErrors({});

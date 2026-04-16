@@ -146,7 +146,7 @@ function adminEmailHtml(input: MicrodegreeSubmissionInput, submissionId: number 
 async function sendWithRetry(
   send: () => Promise<{ messageId?: string }>,
   label: string,
-  retries = 1,
+  retries = 0,
 ) {
   let lastError: unknown;
 
@@ -174,9 +174,9 @@ export async function sendMicrodegreeSubmissionEmails(
     host: cfg.host,
     port: cfg.port,
     secure: cfg.secure,
-    connectionTimeout: 15000,
-    greetingTimeout: 10000,
-    socketTimeout: 20000,
+    connectionTimeout: 8000,
+    greetingTimeout: 8000,
+    socketTimeout: 10000,
     auth: {
       user: cfg.user,
       pass: cfg.pass,

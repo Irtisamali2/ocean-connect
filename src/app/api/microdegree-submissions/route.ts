@@ -14,21 +14,22 @@ export async function POST(request: Request) {
 
     const insertId = await createMicrodegreeSubmission(parsed.data);
 
+    let emailWarning = '';
+    let emailSent = false;
+
     try {
-      const delivery = await sendMicrodegreeSubmissionEmails(parsed.data, insertId);
-      return NextResponse.json({ ok: true, id: insertId, delivery });
+      await Promise.race([
+        sendMicrodegreeSubmissionEmails(parsed.data, insertId),
+        new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('Email delivery timed out')), 12000);
+        }),
+      ]);
+      emailSent = true;
     } catch (emailError) {
-      const message = emailError instanceof Error ? emailError.message : 'Failed to send notification emails';
-      return NextResponse.json(
-        {
-          ok: false,
-          message: `Submission saved, but email delivery failed. ${message}`,
-          saved: true,
-          id: insertId,
-        },
-        { status: 502 },
-      );
+      emailWarning = emailError instanceof Error ? emailError.message : 'Failed to send notification emails';
     }
+
+    return NextResponse.json({ ok: true, id: insertId, emailSent, emailWarning });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to submit form';
     return NextResponse.json({ ok: false, message }, { status: 500 });
