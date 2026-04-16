@@ -27,6 +27,11 @@ export async function POST(request: Request) {
       emailSent = true;
     } catch (emailError) {
       emailWarning = emailError instanceof Error ? emailError.message : 'Failed to send notification emails';
+      console.error('[microdegree-email] delivery warning', {
+        submissionId: insertId,
+        applicantEmail: parsed.data.email,
+        warning: emailWarning,
+      });
     }
 
     return NextResponse.json({ ok: true, id: insertId, emailSent, emailWarning });

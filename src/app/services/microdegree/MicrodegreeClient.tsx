@@ -321,7 +321,7 @@ export default function MicrodegreeClient() {
       }
 
       if (data.emailWarning) {
-        setSubmitSuccess('Your form has been submitted successfully. Email delivery is delayed; our team will follow up shortly.');
+        setSubmitSuccess(`Your form has been submitted successfully, but email is delayed. Reason: ${data.emailWarning}`);
       } else {
         setSubmitSuccess('Your form has been submitted successfully and confirmation emails have been sent.');
       }
