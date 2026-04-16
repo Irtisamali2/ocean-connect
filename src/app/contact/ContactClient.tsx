@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Clock, MessageCircle, Send } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { contactInfo } from '@/lib/contact-info';
 
 const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.45 } } };
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.09 } } };
@@ -16,15 +17,15 @@ export default function ContactClient() {
 
   const onSubmit = (data: FormData) => {
     const text = `*Ocean Connect Inquiry*\n\nName: ${data.fullName}\nPhone: ${data.phone}\nEmail: ${data.email}\nSubject: ${data.subject}\n\nMessage: ${data.message}`;
-    window.open(`https://wa.me/923228341507?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`${contactInfo.general.whatsappHref}?text=${encodeURIComponent(text)}`, '_blank');
     setSubmitted(true); reset();
     setTimeout(() => setSubmitted(false), 4000);
   };
 
   const contactItems = [
-    { icon: Phone, label: 'Phone', value: '0322-8341507', href: 'tel:+923228341507' },
-    { icon: MessageCircle, label: 'WhatsApp', value: '0322-8341507', href: 'https://wa.me/923228341507', ext: true },
-    { icon: Mail, label: 'Email', value: 'oceanconnect0786@gmail.com', href: 'mailto:oceanconnect0786@gmail.com' },
+    { icon: Phone, label: 'Phone', value: contactInfo.general.phoneDisplay, href: contactInfo.general.phoneHref },
+    { icon: MessageCircle, label: 'WhatsApp', value: contactInfo.general.whatsappDisplay, href: contactInfo.general.whatsappHref, ext: true },
+    { icon: Mail, label: 'Email', value: contactInfo.general.email, href: `mailto:${contactInfo.general.email}` },
     { icon: MapPin, label: 'Office', value: 'Office No. 3, Grand Royal Hotel Building, Davis Road, Lahore', href: undefined },
     { icon: Clock, label: 'Hours', value: 'Mon–Sat: 9:00 AM – 6:00 PM', href: undefined },
   ];

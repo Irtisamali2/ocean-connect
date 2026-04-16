@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { Globe, Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { contactInfo } from '@/lib/contact-info';
 
 export default function Footer() {
   return (
@@ -11,13 +12,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-              <div style={{
-                width: 36, height: 36, borderRadius: 8,
-                background: 'rgba(20,184,166,0.1)', border: '1px solid rgba(20,184,166,0.2)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-              }}>
-                <Globe style={{ width: 16, height: 16, color: '#14b8a6' }} />
-              </div>
+              <img src="/ocean-connect-logo.svg" alt="Ocean Connect" style={{ width: 150, height: 46, objectFit: 'contain', flexShrink: 0 }} />
               <div>
                 <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, color: '#0f172a', fontSize: '0.95rem' }}>
                   Ocean Connect
@@ -88,9 +83,9 @@ export default function Footer() {
             </div>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
               {[
-                { icon: Phone, label: '0322-8341507', href: 'tel:+923228341507' },
-                { icon: MessageCircle, label: 'WhatsApp: 0322-8341507', href: 'https://wa.me/923228341507', ext: true },
-                { icon: Mail, label: 'oceanconnect0786@gmail.com', href: 'mailto:oceanconnect0786@gmail.com' },
+                { icon: Phone, label: contactInfo.general.phoneDisplay, href: contactInfo.general.phoneHref },
+                { icon: MessageCircle, label: `WhatsApp: ${contactInfo.general.whatsappDisplay}`, href: contactInfo.general.whatsappHref, ext: true },
+                { icon: Mail, label: contactInfo.general.email, href: `mailto:${contactInfo.general.email}` },
               ].map((item) => {
                 const Icon = item.icon;
                 return (

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { ArrowRight, CheckCircle2, Download, GraduationCap, ShieldCheck, Sparkles, X } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ChevronLeft, ChevronRight, Download, GraduationCap, PlayCircle, ShieldCheck, Sparkles, X } from 'lucide-react';
 import {
   careerGoalOptions,
   computerSkillOptions,
@@ -14,6 +14,7 @@ import {
   understandingOptions,
   type MicrodegreeSubmissionInput,
 } from '@/lib/microdegree-form';
+import { contactInfo } from '@/lib/contact-info';
 
 type FormErrors = Partial<Record<keyof MicrodegreeSubmissionInput, string>>;
 
@@ -94,6 +95,34 @@ const courseCards = [
   },
 ];
 
+const videoTestimonials = [
+  {
+    title: 'Graduate Story 1',
+    youtubeUrl: 'https://www.youtube.com/watch?v=hkZod1SQeZg',
+    imageUrl: 'https://hazzainstitute.org/wp-content/uploads/2025/11/maxresdefault.jpg',
+  },
+  {
+    title: 'Graduate Story 2',
+    youtubeUrl: 'https://youtu.be/0pk-DcQDDyU?si=1fxSbJMTH4b_-4De',
+    imageUrl: 'https://hazzainstitute.org/wp-content/uploads/2025/11/maxresdefault-1.jpg',
+  },
+  {
+    title: 'Graduate Story 3',
+    youtubeUrl: 'https://youtu.be/uwmOD5bClv4?si=x2jOHVByJTkpUcdD',
+    imageUrl: 'https://hazzainstitute.org/wp-content/uploads/2025/11/maxresdefault-4.jpg',
+  },
+  {
+    title: 'Graduate Story 4',
+    youtubeUrl: 'https://youtu.be/inReVZ_As-o?si=9Hwj-oeMQgSQhzLI',
+    imageUrl: 'https://hazzainstitute.org/wp-content/uploads/2025/11/maxresdefault-2.jpg',
+  },
+  {
+    title: 'Graduate Story 5',
+    youtubeUrl: 'https://youtu.be/r_N35tHKfUI?si=254ySraTB485PUfj',
+    imageUrl: 'https://hazzainstitute.org/wp-content/uploads/2025/11/maxresdefault-3.jpg',
+  },
+];
+
 function FieldLabel({ children }: { children: React.ReactNode }) {
   return (
     <label style={{ display: 'block', fontSize: '0.95rem', fontWeight: 700, color: '#e2e8f0', marginBottom: 6 }}>
@@ -143,8 +172,15 @@ export default function MicrodegreeClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState('');
   const [submitError, setSubmitError] = useState('');
+  const [videoStartIndex, setVideoStartIndex] = useState(0);
 
   const progress = useMemo(() => ((step + 1) / 4) * 100, [step]);
+  const visibleVideos = useMemo(() => {
+    return Array.from({ length: 3 }, (_, offset) => {
+      const index = (videoStartIndex + offset) % videoTestimonials.length;
+      return videoTestimonials[index];
+    });
+  }, [videoStartIndex]);
   const maxDateOfBirth = useMemo(() => {
     const maxDate = new Date();
     maxDate.setHours(0, 0, 0, 0);
@@ -225,6 +261,14 @@ export default function MicrodegreeClient() {
 
   function handlePrevious() {
     setStep((prev) => Math.max(prev - 1, 0));
+  }
+
+  function showPreviousVideos() {
+    setVideoStartIndex((prev) => (prev - 1 + videoTestimonials.length) % videoTestimonials.length);
+  }
+
+  function showNextVideos() {
+    setVideoStartIndex((prev) => (prev + 1) % videoTestimonials.length);
   }
 
   async function handleSubmit() {
@@ -391,6 +435,49 @@ export default function MicrodegreeClient() {
         </div>
       </section>
 
+      <section className="section section-alt" style={{ paddingTop: 48 }}>
+        <div className="site-container">
+          <div style={{ textAlign: 'center', marginBottom: 20 }}>
+            <div className="section-label" style={{ justifyContent: 'center' }}>Success Stories</div>
+            <h2 className="heading-lg" style={{ marginBottom: 8 }}>Video Testimonials</h2>
+            <p style={{ fontSize: '0.9rem', color: '#64748b', margin: 0 }}>Hear directly from learners who completed the program.</p>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginBottom: 14 }}>
+            <button type="button" className="btn-outline" onClick={showPreviousVideos} style={{ padding: '9px 12px' }} aria-label="Previous videos">
+              <ChevronLeft style={{ width: 16, height: 16 }} />
+            </button>
+            <button type="button" className="btn-outline" onClick={showNextVideos} style={{ padding: '9px 12px' }} aria-label="Next videos">
+              <ChevronRight style={{ width: 16, height: 16 }} />
+            </button>
+          </div>
+
+          <div className="g-3">
+            {visibleVideos.map((video) => (
+              <a
+                key={`${video.title}-${video.youtubeUrl}`}
+                href={video.youtubeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card"
+                style={{ padding: 10, position: 'relative', overflow: 'hidden' }}
+              >
+                <div style={{ position: 'relative', borderRadius: 10, overflow: 'hidden', background: '#0f172a' }}>
+                  <img
+                    src={video.imageUrl}
+                    alt={`${video.title} thumbnail`}
+                    style={{ display: 'block', width: '100%', aspectRatio: '3 / 4', objectFit: 'cover' }}
+                  />
+                  <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(180deg, rgba(15,23,42,0.05), rgba(15,23,42,0.32))' }}>
+                    <PlayCircle style={{ width: 72, height: 72, color: '#ffffff' }} />
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="section" style={{ paddingTop: 20 }}>
         <div className="site-container">
           <div className="card" style={{ background: 'linear-gradient(120deg, #e0f2fe 0%, #ecfeff 100%)', border: '1px solid rgba(20,184,166,0.2)' }}>
@@ -426,6 +513,12 @@ export default function MicrodegreeClient() {
                 <p style={{ margin: 0, color: '#475569', fontSize: '0.9rem' }}>{item}</p>
               </div>
             ))}
+          </div>
+          <div className="card" style={{ marginTop: 14, borderColor: 'rgba(20,184,166,0.2)', background: '#f0fdfa' }}>
+            <h3 className="heading-md" style={{ marginTop: 0, marginBottom: 10 }}>Need help with enrollment?</h3>
+            <p style={{ margin: 0, fontSize: '0.9rem', color: '#334155' }}>
+              WhatsApp: <a href={contactInfo.microdegree.whatsappHref} target="_blank" rel="noopener noreferrer" style={{ color: '#0d9488', fontWeight: 700 }}>{contactInfo.microdegree.whatsappDisplay}</a> | Email: <a href={`mailto:${contactInfo.microdegree.email}`} style={{ color: '#0d9488', fontWeight: 700 }}>{contactInfo.microdegree.email}</a>
+            </p>
           </div>
         </div>
       </section>

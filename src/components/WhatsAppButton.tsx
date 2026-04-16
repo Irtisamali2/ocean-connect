@@ -2,11 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
+import { contactInfo } from '@/lib/contact-info';
 
 export default function WhatsAppButton() {
   return (
     <motion.a
-      href="https://wa.me/923228341507"
+      href={contactInfo.general.whatsappHref}
       target="_blank"
       rel="noopener noreferrer"
       className="wa-float"

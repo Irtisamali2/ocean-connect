@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { MessageCircle, Mail, MapPin, DollarSign, CheckCircle } from 'lucide-react';
+import { contactInfo } from '@/lib/contact-info';
 
 const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.45 } } };
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
@@ -112,12 +113,12 @@ export default function JobsClient() {
                   </div>
 
                   <div className="job-apply-row" style={{ display: 'flex', gap: 10 }}>
-                    <a href="https://wa.me/923228341507" target="_blank" rel="noopener noreferrer"
+                    <a href={contactInfo.recruitment.whatsappHref} target="_blank" rel="noopener noreferrer"
                       style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '11px 0', borderRadius: 8, background: '#25d366', color: '#fff', fontWeight: 600, fontSize: '0.8rem' }}
                     >
                       <MessageCircle style={{ width: 14, height: 14 }} /> Apply via WhatsApp
                     </a>
-                    <a href="mailto:oceanconnect0786@gmail.com"
+                    <a href={`mailto:${contactInfo.recruitment.email}`}
                       style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '11px 16px', borderRadius: 8, border: '1px solid rgba(15, 23, 42, 0.12)', color: '#64748b', fontSize: '0.8rem' }}
                     >
                       <Mail style={{ width: 14, height: 14 }} /> Email
@@ -137,8 +138,8 @@ export default function JobsClient() {
               Send your CV and documents as a single PDF. Mention the position name.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 20 }}>
-              <a href="https://wa.me/923228341507" style={{ fontSize: '0.8rem', color: '#14b8a6', fontWeight: 500 }}>WhatsApp: 0322-8341507</a>
-              <a href="mailto:oceanconnect0786@gmail.com" style={{ fontSize: '0.8rem', color: '#14b8a6', fontWeight: 500 }}>oceanconnect0786@gmail.com</a>
+              <a href={contactInfo.recruitment.whatsappHref} style={{ fontSize: '0.8rem', color: '#14b8a6', fontWeight: 500 }}>WhatsApp: {contactInfo.recruitment.whatsappDisplay}</a>
+              <a href={`mailto:${contactInfo.recruitment.email}`} style={{ fontSize: '0.8rem', color: '#14b8a6', fontWeight: 500 }}>{contactInfo.recruitment.email}</a>
             </div>
           </motion.div>
         </div>

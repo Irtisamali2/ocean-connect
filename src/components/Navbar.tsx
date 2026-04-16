@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, ChevronDown, Globe } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
@@ -39,17 +39,7 @@ export default function Navbar() {
       <div className="site-container h-full flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 group" onClick={() => setIsOpen(false)}>
-          <div
-            style={{
-              width: 36, height: 36, borderRadius: 8,
-              background: 'rgba(20,184,166,0.12)',
-              border: '1px solid rgba(20,184,166,0.25)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              flexShrink: 0,
-            }}
-          >
-            <Globe style={{ width: 18, height: 18, color: '#14b8a6' }} />
-          </div>
+          <img src="/ocean-connect-logo.svg" alt="Ocean Connect" style={{ width: 168, height: 52, objectFit: 'contain', flexShrink: 0 }} />
           <div>
             <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: '1rem', color: '#0f172a', lineHeight: 1.1 }}>
               Ocean Connect

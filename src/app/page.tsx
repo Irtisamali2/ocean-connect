@@ -21,7 +21,7 @@ const services = [
 ];
 
 const whyUs = [
-  { icon: Shield, title: 'BEOE Licensed', desc: 'Fully compliant with Pakistani emigration laws and international employment standards.' },
+  { icon: Shield, title: 'Compliance First', desc: 'Aligned with Pakistani emigration regulations and international employment standards.' },
   { icon: Award, title: 'Microsoft Authorized', desc: 'Official marketing partner for Microsoft Skills for Jobs in collaboration with KAMK University Finland.' },
   { icon: UserCheck, title: 'Verified Employers', desc: 'Every job offer is authenticated before being shared with candidates. No fake listings.' },
   { icon: CheckCircle, title: 'Zero Exploitation', desc: 'Candidates are fully briefed on salary, rights, and contract terms before departure.' },
@@ -107,7 +107,7 @@ export default function HomePage() {
               <div className="g-2">
                 {[
                   { icon: Globe, label: 'Global Reach', sub: '20+ countries' },
-                  { icon: Shield, label: 'BEOE Licensed', sub: 'Fully compliant' },
+                  { icon: Shield, label: 'Compliance First', sub: 'Legally aligned' },
                   { icon: Award, label: 'MS Authorized', sub: 'Official partner' },
                   { icon: CheckCircle, label: 'Zero Exploitation', sub: 'Ethical first' },
                 ].map((item) => {

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   description:
     "Pakistan's trusted overseas HR placement agency and Microsoft MicroDegree partner. Recruit, train, and place your career globally with Ocean Connect.",
   keywords:
-    "overseas recruitment Pakistan, Microsoft MicroDegree Pakistan, jobs abroad Pakistan, IT certifications Pakistan, Gulf jobs, BEOE licensed agency",
+    "overseas recruitment Pakistan, Microsoft MicroDegree Pakistan, jobs abroad Pakistan, IT certifications Pakistan, Gulf jobs, ethical recruitment agency",
   openGraph: {
     title: "Ocean Connect | Recruit. Train. Place. Globally.",
     description:

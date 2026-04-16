@@ -28,7 +28,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="heading-md" style={{ marginBottom: 8 }}>Contact</h2>
-            <p>For any queries, contact: <a href="mailto:oceanconnect0786@gmail.com" style={{ color: '#14b8a6' }}>oceanconnect0786@gmail.com</a></p>
+            <p>For any queries, contact: <a href="mailto:info@connectwithocean.com" style={{ color: '#14b8a6' }}>info@connectwithocean.com</a></p>
           </section>
 
           <p style={{ fontSize: '0.75rem', color: '#64748b' }}>Last Updated: April 2026</p>
