@@ -11,16 +11,8 @@ export default function Footer() {
         <div className="footer-grid" style={{ marginBottom: 56 }}>
           {/* Brand */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 16 }}>
               <img src="/ocean-connect-logo.svg" alt="Ocean Connect" style={{ width: 150, height: 46, objectFit: 'contain', flexShrink: 0 }} />
-              <div>
-                <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, color: '#0f172a', fontSize: '0.95rem' }}>
-                  Ocean Connect
-                </div>
-                <div style={{ fontSize: '0.6rem', color: '#64748b', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                  Recruit · Train · Place · Globally
-                </div>
-              </div>
             </div>
             <p style={{ fontSize: '0.8rem', color: '#64748b', lineHeight: 1.7, maxWidth: 260 }}>
               Connecting Pakistan&apos;s talent with global employers and world-class tech education.

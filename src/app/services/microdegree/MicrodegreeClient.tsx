@@ -164,6 +164,29 @@ function formatDateInputValue(date: Date) {
   return `${year}-${month}-${day}`;
 }
 
+function getYoutubeEmbedUrl(url: string) {
+  try {
+    const parsed = new URL(url);
+    let videoId = '';
+
+    if (parsed.hostname.includes('youtu.be')) {
+      videoId = parsed.pathname.replace('/', '');
+    } else if (parsed.pathname.includes('/watch')) {
+      videoId = parsed.searchParams.get('v') || '';
+    } else if (parsed.pathname.includes('/shorts/')) {
+      videoId = parsed.pathname.split('/shorts/')[1] || '';
+    }
+
+    if (!videoId) {
+      return '';
+    }
+
+    return `https://www.youtube.com/embed/${videoId}`;
+  } catch {
+    return '';
+  }
+}
+
 export default function MicrodegreeClient() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [step, setStep] = useState(0);
@@ -173,6 +196,7 @@ export default function MicrodegreeClient() {
   const [submitSuccess, setSubmitSuccess] = useState('');
   const [submitError, setSubmitError] = useState('');
   const [videoStartIndex, setVideoStartIndex] = useState(0);
+  const [activeVideo, setActiveVideo] = useState<(typeof videoTestimonials)[number] | null>(null);
 
   const progress = useMemo(() => ((step + 1) / 4) * 100, [step]);
   const visibleVideos = useMemo(() => {
@@ -454,13 +478,12 @@ export default function MicrodegreeClient() {
 
           <div className="g-3">
             {visibleVideos.map((video) => (
-              <a
+              <button
                 key={`${video.title}-${video.youtubeUrl}`}
-                href={video.youtubeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                type="button"
+                onClick={() => setActiveVideo(video)}
                 className="card"
-                style={{ padding: 10, position: 'relative', overflow: 'hidden' }}
+                style={{ padding: 10, position: 'relative', overflow: 'hidden', cursor: 'pointer', border: '1px solid rgba(15,23,42,0.08)' }}
               >
                 <div style={{ position: 'relative', borderRadius: 10, overflow: 'hidden', background: '#0f172a' }}>
                   <img
@@ -472,7 +495,7 @@ export default function MicrodegreeClient() {
                     <PlayCircle style={{ width: 72, height: 72, color: '#ffffff' }} />
                   </div>
                 </div>
-              </a>
+              </button>
             ))}
           </div>
         </div>
@@ -522,6 +545,34 @@ export default function MicrodegreeClient() {
           </div>
         </div>
       </section>
+
+      {activeVideo ? (
+        <div
+          style={{ position: 'fixed', inset: 0, background: 'rgba(2,6,23,0.78)', zIndex: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}
+          onClick={() => setActiveVideo(null)}
+        >
+          <div
+            style={{ width: 'min(980px, 100%)', background: '#020617', borderRadius: 14, border: '1px solid rgba(148,163,184,0.25)', overflow: 'hidden', position: 'relative' }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setActiveVideo(null)}
+              style={{ position: 'absolute', top: 8, right: 8, width: 34, height: 34, borderRadius: 999, border: '1px solid rgba(226,232,240,0.35)', background: 'rgba(2,6,23,0.6)', color: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 1 }}
+              aria-label="Close video"
+            >
+              <X style={{ width: 18, height: 18 }} />
+            </button>
+            <iframe
+              src={`${getYoutubeEmbedUrl(activeVideo.youtubeUrl)}?autoplay=1&rel=0`}
+              title={activeVideo.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              style={{ width: '100%', aspectRatio: '16 / 9', border: 'none', display: 'block' }}
+            />
+          </div>
+        </div>
+      ) : null}
 
       {isFormOpen ? (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(2,6,23,0.62)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 14 }}>

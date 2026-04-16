@@ -38,16 +38,8 @@ export default function Navbar() {
     <nav className={`navbar transition-all duration-300 ${scrolled ? 'navbar-scrolled' : 'bg-transparent'}`}>
       <div className="site-container h-full flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group" onClick={() => setIsOpen(false)}>
+        <Link href="/" className="flex items-center group" onClick={() => setIsOpen(false)}>
           <img src="/ocean-connect-logo.svg" alt="Ocean Connect" style={{ width: 168, height: 52, objectFit: 'contain', flexShrink: 0 }} />
-          <div>
-            <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: '1rem', color: '#0f172a', lineHeight: 1.1 }}>
-              Ocean Connect
-            </div>
-            <div className="nav-brand-subtitle" style={{ fontSize: '0.6rem', color: '#14b8a6', letterSpacing: '0.12em', textTransform: 'uppercase', lineHeight: 1 }}>
-              Recruit · Train · Place
-            </div>
-          </div>
         </Link>
 
         {/* Desktop links */}
