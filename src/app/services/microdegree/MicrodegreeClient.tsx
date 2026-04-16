@@ -301,11 +301,16 @@ export default function MicrodegreeClient() {
 
     setIsSubmitting(true);
     setSubmitError('');
+    setSubmitSuccess('');
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000);
 
     try {
       const response = await fetch('/api/microdegree-submissions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify(formData),
       });
 
@@ -319,9 +324,13 @@ export default function MicrodegreeClient() {
       setFormData(initialForm);
       setStep(0);
       setErrors({});
-    } catch {
-      setSubmitError('Unable to submit right now. Please try again.');
+    } catch (error) {
+      const message = error instanceof Error && error.name === 'AbortError'
+        ? 'Request timed out. Please try again in a few moments.'
+        : 'Unable to submit right now. Please try again.';
+      setSubmitError(message);
     } finally {
+      clearTimeout(timeout);
       setIsSubmitting(false);
     }
   }

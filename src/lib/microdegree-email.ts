@@ -174,6 +174,9 @@ export async function sendMicrodegreeSubmissionEmails(
     host: cfg.host,
     port: cfg.port,
     secure: cfg.secure,
+    connectionTimeout: 15000,
+    greetingTimeout: 10000,
+    socketTimeout: 20000,
     auth: {
       user: cfg.user,
       pass: cfg.pass,
