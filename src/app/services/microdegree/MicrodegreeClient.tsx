@@ -553,7 +553,7 @@ export default function MicrodegreeClient() {
           </div>
           <div className="card" style={{ marginTop: 14, borderColor: 'rgba(20,184,166,0.2)', background: '#f0fdfa' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-              <Image src="/microdegree/fb-logo.png" alt="Facebook" width={28} height={28} style={{ borderRadius: 6 }} />
+              <Image src="/microdegree/fb-logo.png" alt="Ocean Connect" width={160} height={48} style={{ objectFit: 'contain' }} />
               <h3 className="heading-md" style={{ margin: 0 }}>Need help with enrollment?</h3>
             </div>
             <p style={{ margin: 0, fontSize: '0.9rem', color: '#334155' }}>
