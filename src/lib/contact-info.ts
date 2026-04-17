@@ -18,6 +18,6 @@ export const contactInfo = {
     phoneHref: 'tel:+923200004893',
     whatsappDisplay: '0320 0004893',
     whatsappHref: 'https://wa.me/923200004893',
-    email: 'microdgree@connectwithocean.com',
+    email: 'microdegree@connectwithocean.com',
   },
 } as const;
