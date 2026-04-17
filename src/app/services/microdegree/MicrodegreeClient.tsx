@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import { ArrowRight, CheckCircle2, ChevronLeft, ChevronRight, Download, GraduationCap, PlayCircle, ShieldCheck, Sparkles, X } from 'lucide-react';
 import {
@@ -552,10 +551,7 @@ export default function MicrodegreeClient() {
             ))}
           </div>
           <div className="card" style={{ marginTop: 14, borderColor: 'rgba(20,184,166,0.2)', background: '#f0fdfa' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-              <Image src="/microdegree/fb-logo.png" alt="Ocean Connect" width={160} height={48} style={{ objectFit: 'contain' }} />
-              <h3 className="heading-md" style={{ margin: 0 }}>Need help with enrollment?</h3>
-            </div>
+            <h3 className="heading-md" style={{ marginTop: 0, marginBottom: 10 }}>Need help with enrollment?</h3>
             <p style={{ margin: 0, fontSize: '0.9rem', color: '#334155' }}>
               WhatsApp: <a href={contactInfo.microdegree.whatsappHref} target="_blank" rel="noopener noreferrer" style={{ color: '#0d9488', fontWeight: 700 }}>{contactInfo.microdegree.whatsappDisplay}</a> | Email: <a href={`mailto:${contactInfo.microdegree.email}`} style={{ color: '#0d9488', fontWeight: 700 }}>{contactInfo.microdegree.email}</a>
             </p>

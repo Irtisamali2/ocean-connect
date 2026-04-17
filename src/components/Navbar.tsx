@@ -39,7 +39,7 @@ export default function Navbar() {
       <div className="site-container h-full flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center group" onClick={() => setIsOpen(false)}>
-          <img src="/ocean-connect-logo.svg" alt="Ocean Connect" style={{ width: 168, height: 52, objectFit: 'contain', flexShrink: 0 }} />
+          <img src="/microdegree/fb-logo.png" alt="Ocean Connect" style={{ width: 168, height: 52, objectFit: 'contain', flexShrink: 0 }} />
         </Link>
 
         {/* Desktop links */}

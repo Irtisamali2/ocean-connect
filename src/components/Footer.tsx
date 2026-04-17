@@ -12,7 +12,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: 16 }}>
-              <img src="/ocean-connect-logo.svg" alt="Ocean Connect" style={{ width: 150, height: 46, objectFit: 'contain', flexShrink: 0 }} />
+              <img src="/microdegree/fb-logo.png" alt="Ocean Connect" style={{ width: 150, height: 46, objectFit: 'contain', flexShrink: 0 }} />
             </div>
             <p style={{ fontSize: '0.8rem', color: '#64748b', lineHeight: 1.7, maxWidth: 260 }}>
               Connecting Pakistan&apos;s talent with global employers and world-class tech education.
